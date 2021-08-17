@@ -16,7 +16,7 @@ V -> "smiled" | "tell" | "were"
 
 NONTERMINALS = """
 S -> NP VP | Det NP VP
-NP -> N | N P NP | AdjP NP | NP Conj NP | NP VP | NP Adv VP | NP Adv | NP Conj VP | N P Det NP 
+NP -> N | N P NP | AdjP NP | NP Conj NP | NP VP | NP Adv VP | NP Adv | NP Conj VP | N P Det NP
 VP -> V | V Det NP | V P Det NP | V Det AdjP NP | V P NP | VP Adv | VP Adv Conj VP | VP NP
 AdjP -> Adj
 """
@@ -79,7 +79,6 @@ def preprocess(sentence):
             i -= 1
             n -= 1
         i += 1
-    print(words)
     return words
     #raise NotImplementedError
 
@@ -91,26 +90,14 @@ def np_chunk(tree):
     whose label is "NP" that does not itself contain any other
     noun phrases as subtrees.
     """
-    #print(tree)
-    #for i in tree:
-    #    print(i, i.label())
-    #tree.draw()
-    #print("-------------------------\n\n\n")
-    #for i in tree.subtrees():
-        #print(i)
-    #print("\n\n\n-------------------------")
     list = []
     for i in tree.subtrees():
         add = 1
-        #print(f"In I {i.label()}")
         for j in i.subtrees():
-            #print(f"In J {j.label()}")
-            #print(i.__eq__(j))
             if j.label() == "NP" and not i.__eq__(j):
                 add = 0
         if add == 1 and i.label() == "NP":
             list.append(i)
-    #print(list)
     return list
     #raise NotImplementedError
 
